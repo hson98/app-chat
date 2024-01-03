@@ -1,0 +1,47 @@
+version: "3.9"
+services:
+  app-chat-backend:
+    container_name: app_chat_backend
+    build: .
+    ports:
+      - 8080:8080
+    restart: on-failure
+    volumes:
+      - app_chat:/usr/src/app/
+    depends_on:
+      - db
+      - cache
+    networks:
+      - app-chat
+  db:
+    image: postgres:latest
+    container_name: db_postgres_app_chat
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASS}
+      - POSTGRES_DB=${DB_NAME}
+    ports:
+      - '5434:5432'
+    volumes:
+      - ./database_postgres:/var/lib/postgresql/data
+    networks:
+      - app-chat
+  cache:
+    image: redis:6.2-alpine
+    container_name: redis_app_chat
+    restart: always
+    environment:
+      - REDIS_PASSWORD=${REDIS_PASS}
+    ports:
+      - '6378:6379'
+    volumes:
+      - ./cache:/data
+    networks:
+      - app-chat
+volumes:
+  app_chat:
+  database_postgres:
+  cache:
+networks:
+  app-chat:
+    driver: bridge
