@@ -25,10 +25,10 @@ Link docs:
     brew install sqlc
     ```
 
-- [Gomock](https://github.com/golang/mock)
+- [Gomock](https://github.com/uber-go/mock)
 
     ``` bash
-    go install github.com/golang/mock/mockgen@v1.6.0
+    go install go.uber.org/mock/mockgen@latest
     ```
 ### How to run project ?
 - Clone project

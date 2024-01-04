@@ -14,8 +14,8 @@ func NewPostgresDB(config *config.Config) *gorm.DB {
 	dbName := config.DBName
 	dbHost := config.DBHost
 	port := config.DBPort
-	//dsn = "host=localhost user=gorm password=gorm dbname=gorm port=9920 sslmode=disable TimeZone=Asia/Shanghai"require
-	dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable  TimeZone=Asia/Ho_Chi_Minh", dbHost, username, password, dbName, port)
+	//dsn = "host=localhost auth=gorm password=gorm dbname=gorm port=9920 sslmode=disable TimeZone=Asia/Shanghai"require
+	dsn := fmt.Sprintf("host=%s auth=%s password=%s dbname=%s port=%s sslmode=disable  TimeZone=Asia/Ho_Chi_Minh", dbHost, username, password, dbName, port)
 
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{
 		Logger: logger.Default.LogMode(logger.Info),
