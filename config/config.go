@@ -13,8 +13,10 @@ type Config struct {
 	DBHost               string        `mapstructure:"DB_HOST"`
 	DBPort               string        `mapstructure:"DB_PORT"`
 	RedisHost            string        `mapstructure:"REDIS_HOST"`
+	RedisPass            string        `mapstructure:"REDIS_PASS"`
 	AccessTokenDuration  time.Duration `mapstructure:"ACCESS_TOKEN_DURATION"`
 	RefreshTokenDuration time.Duration `mapstructure:"REFRESH_TOKEN_DURATION"`
+	SecretKeyJWT         string        `mapstructure:"SECRET_KEY"`
 }
 
 func LoadConfig(path string, name string) (config *Config, err error) {

@@ -24,10 +24,10 @@ type authUC struct {
 	authRepo      auth_repository.Repository
 	authRedisRepo auth_repository.RedisRepository
 	config        *config.Config
-	jwtMaker      myjwt.JwtMaker
+	jwtMaker      myjwt.Maker
 }
 
-func NewAuthUC(authRepo auth_repository.Repository, authRedisRepo auth_repository.RedisRepository, config *config.Config, jwtMaker myjwt.JwtMaker) UseCase {
+func NewAuthUC(authRepo auth_repository.Repository, authRedisRepo auth_repository.RedisRepository, config *config.Config, jwtMaker myjwt.Maker) UseCase {
 	return &authUC{
 		authRepo:      authRepo,
 		authRedisRepo: authRedisRepo,

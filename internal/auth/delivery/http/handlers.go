@@ -5,10 +5,11 @@ import (
 	auth_usecase "hson98/app-chat/internal/auth/usecase"
 )
 
-type Handler interface {
+type Handlers interface {
 	Login() gin.HandlerFunc
 	Register() gin.HandlerFunc
 	Logout() gin.HandlerFunc
+	GetProfile() gin.HandlerFunc
 }
 
 type authHandler struct {
@@ -32,7 +33,12 @@ func (a authHandler) Logout() gin.HandlerFunc {
 
 	}
 }
+func (a authHandler) GetProfile() gin.HandlerFunc {
+	return func(c *gin.Context) {
 
-func NewAuthHandler(authUC auth_usecase.UseCase) Handler {
+	}
+}
+
+func NewAuthHandler(authUC auth_usecase.UseCase) Handlers {
 	return &authHandler{authUC: authUC}
 }

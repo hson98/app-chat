@@ -1,6 +1,7 @@
 package database
 
 import (
+	"context"
 	"github.com/redis/go-redis/v9"
 	"log"
 	"sync"
@@ -11,14 +12,18 @@ var (
 	once        sync.Once
 )
 
-func GetRedisClient(redisHost string) *redis.Client {
+func GetRedisClient(redisHost string, pass string) *redis.Client {
 	once.Do(func() {
-		opts, err := redis.ParseURL(redisHost)
+		redisClient = redis.NewClient(&redis.Options{
+			Addr:     redisHost,
+			Password: "redis", // no password set
+			DB:       0,       // use default DB
+		})
+		_, err := redisClient.Ping(context.Background()).Result()
 		if err != nil {
-			log.Printf("error connect redis %v", err)
+			log.Fatalf("Lỗi connect redis%s", err.Error())
 			panic(err)
 		}
-		redisClient = redis.NewClient(opts)
 	})
 	return redisClient
 }
