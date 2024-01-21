@@ -14,7 +14,7 @@ func (s *Server) MapHandlers(r *gin.Engine) {
 	authRedisRepo := auth_repository.NewAuthRedisRepo(s.redisClient)
 	authRepo := auth_repository.NewAuthRepo(s.db)
 	authUC := auth_usecase.NewAuthUC(authRepo, authRedisRepo, s.config, s.jwtMaker)
-	authHandler := auth_http.NewAuthHandler(authUC)
+	authHandler := auth_http.NewAuthHandler(authUC, s.jwtMaker)
 	mw := middlewares.NewMiddlewareManager([]string{"*"}, s.jwtMaker, s.redisClient)
 	r.Use(middlewares.CORSMiddleware())
 	v1 := r.Group("/api/v1")
